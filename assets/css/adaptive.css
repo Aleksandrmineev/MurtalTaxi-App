@@ -76,3 +76,24 @@
   contain: paint; /* изолируем рисование псевдо-элемента */
   will-change: transform, opacity;
 }
+
+/* ===== Верхний переключатель темы скрывать на узких экранах ===== */
+@media (max-width: 600px) {
+  #theme-toggle {
+    display: none;
+  }
+  .brand__logo {
+    width: 24px;
+    height: 24px;
+  }
+  .brand__logo img {
+    width: 24px;
+    height: 24px;
+  }
+  .brand__title {
+    font-size: 18px;
+  }
+  .pill {
+    font-size: clamp(14px, 3.5vw, 16px);
+  }
+}

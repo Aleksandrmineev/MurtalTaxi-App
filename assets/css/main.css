@@ -214,7 +214,7 @@
 .tile__title {
   font-size: clamp(18px, 2.1vw, 22px);
   font-weight: 700;
-  margin: 2px 0 6px;
+  margin: 6px 0;
 
   /* перенос по слогам и мягкий перенос длинных слов */
   hyphens: auto;
