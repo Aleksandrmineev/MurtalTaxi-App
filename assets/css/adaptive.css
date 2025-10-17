@@ -9,6 +9,7 @@
 @media (max-width: 767.98px) {
   .header {
     gap: 10px;
+    flex-wrap: wrap;
   }
   .pill {
     padding: 9px 12px;
@@ -51,4 +52,27 @@
   .actions {
     flex-wrap: nowrap;
   }
+}
+
+/* телефоны — 2 колонки стабильно */
+@media (max-width: 899.98px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid {
+    gap: clamp(10px, 3vw, 16px);
+  } /* чуть компактнее, чтобы точно влезло */
+}
+
+/* десктоп — 3 колонки */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.tile:after {
+  /* всё как у тебя, но */
+  contain: paint; /* изолируем рисование псевдо-элемента */
+  will-change: transform, opacity;
 }

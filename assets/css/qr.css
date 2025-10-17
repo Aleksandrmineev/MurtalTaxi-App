@@ -360,3 +360,102 @@
     width: 7ch;
   }
 }
+
+/* 1) Не даём странице уехать по оси X (safety net) */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* 2) QR-изображение никогда не вылезет за контейнер */
+.qrbox .qrcanvas img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 3) Поля Fahrer/Betrag/Trinkgeld: адаптивные ширины вместо жёстких ch */
+#driverNo {
+  width: clamp(5ch, 18vw, 6ch);
+  text-align: center;
+}
+#fare {
+  width: clamp(9ch, 32vw, 11ch);
+}
+#tip {
+  width: clamp(7ch, 26vw, 8ch);
+}
+
+/* 4) Линия полей: по умолчанию в одну строку, но на очень узких — разрешаем перенос */
+.pay-line {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+/* iPhone 12 mini и уже — если шрифт крупнее, даём перенос без горизонтального скролла */
+@media (max-width: 380px) {
+  .pay-line {
+    flex-wrap: wrap;
+  }
+  .pay-line .field {
+    flex: 1 1 48%;
+    min-width: 0;
+  }
+  #driverNo,
+  #fare,
+  #tip {
+    width: 100%;
+    max-width: 100%;
+    text-align: right;
+  }
+}
+
+/* 5) Кнопки действий: на узких экранах можно переносить, иначе — в строку */
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+@media (max-width: 420px) {
+  .actions {
+    flex-wrap: wrap;
+  }
+}
+.actions .copybtn,
+.actions .wa-btn {
+  white-space: nowrap;
+}
+
+/* 6) Строка отчёта: исключаем «выталкивания» из-за авто-растяжения */
+.report-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+.report-line #clearLog {
+  margin-left: auto;
+}
+.report-line .copybtn {
+  flex: 0 0 auto;
+}
+.report-line .small.muted {
+  flex-basis: 100%;
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* 7) Чуть компактнее отступы, чтобы всё помещалось на узких экранах */
+@media (max-width: 380px) {
+  .tip-buttons {
+    gap: 6px;
+  }
+  .sep {
+    margin: 10px 0;
+  }
+}

@@ -212,16 +212,36 @@
 }
 
 .tile__title {
-  /* было: clamp(16px, 1.9vw, 20px) */
   font-size: clamp(18px, 2.1vw, 22px);
   font-weight: 700;
   margin: 2px 0 6px;
+
+  /* перенос по слогам и мягкий перенос длинных слов */
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  /* для Safari/iOS */
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+
+  /* чуть улучшим ритм */
+  line-height: 1.25;
 }
+
 .tile__desc {
   /* было: clamp(13px, 1.6vw, 15px) */
   font-size: clamp(14px, 1.7vw, 17px);
   color: var(--muted);
   margin: 0;
+  /* перенос по слогам и мягкий перенос длинных слов */
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  /* для Safari/iOS */
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
 }
 
 /* footer */
@@ -338,4 +358,39 @@ footer .muted {
   .tile::before {
     animation: none;
   }
+}
+
+/* сетка плиток — безопасно для узких экранов */
+.grid {
+  display: grid;
+  gap: var(--tile-gap);
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  ); /* minmax(0,1fr) убирает переполнение */
+}
+
+/* плитка не «растягивает» контейнер при блюрах/градиентах */
+.tile {
+  min-width: 0;
+  contain: paint; /* изоляция эффектов ::after/blur, не выталкивает страницу по X */
+  overflow: hidden; /* у тебя уже было — оставляем */
+}
+
+/* иконка и svg — никогда не шире своей плитки */
+.tile__icon {
+  width: clamp(56px, 7vw, 72px);
+  height: clamp(56px, 7vw, 72px);
+}
+.tile__icon svg {
+  width: 70%;
+  height: 70%;
+  max-width: 100%;
+  display: block;
+}
+
+/* подстраховка от любых «виновников» */
+html,
+body {
+  overflow-x: hidden;
 }
